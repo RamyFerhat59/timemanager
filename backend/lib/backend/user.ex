@@ -3,7 +3,10 @@ defmodule Backend.User do
   import Ecto.Changeset
 
   schema "users" do
-
+    field :email, :string
+    field :username, :string
+    has_many :clocks, Backend.Clock
+    has_many :workingtimes, Backend.Clock
 
     timestamps()
   end
@@ -11,7 +14,7 @@ defmodule Backend.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:username, :email])
+    |> validate_required([:username, :email])
   end
 end

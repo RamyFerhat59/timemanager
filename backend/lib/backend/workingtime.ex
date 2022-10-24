@@ -3,7 +3,9 @@ defmodule Backend.Workingtime do
   import Ecto.Changeset
 
   schema "workingtimes" do
-
+    field :end, :naive_datetime
+    field :start, :naive_datetime
+    belongs_to :user, Backend.User
 
     timestamps()
   end
@@ -11,7 +13,7 @@ defmodule Backend.Workingtime do
   @doc false
   def changeset(workingtime, attrs) do
     workingtime
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:start, :end, :user])
+    |> validate_required([:start, :end, :user])
   end
 end

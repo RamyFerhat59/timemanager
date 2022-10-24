@@ -23,7 +23,7 @@ config :backend, BackendWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "tZcESboRveRRSjTiGbZVgZGDy1UWBXzQBVP84oF6Ux3lPqET0g6dgnUPsQYqhJb3",
+  secret_key_base: "pXbvj2DCMrUAkOzG7nY/IA7ls5pAJvQrJrqU9nIzFRrJjg/T6h+9y2hD5l0jXVhb",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
@@ -52,17 +52,6 @@ config :backend, BackendWeb.Endpoint,
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.
-
-# Watch static and templates for browser reloading.
-config :backend, BackendWeb.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/backend_web/(live|views)/.*(ex)$",
-      ~r"lib/backend_web/templates/.*(eex)$"
-    ]
-  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

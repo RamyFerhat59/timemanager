@@ -13,9 +13,9 @@ config :backend,
 # Configures the endpoint
 config :backend, BackendWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: BackendWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: BackendWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: Backend.PubSub,
-  live_view: [signing_salt: "cEDSO2iQ"]
+  live_view: [signing_salt: "malf+3P9"]
 
 # Configures the mailer
 #

@@ -3,7 +3,9 @@ defmodule Backend.Clock do
   import Ecto.Changeset
 
   schema "clocks" do
-
+    field :status, :boolean, default: true
+    field :time, :naive_datetime
+    belongs_to :user, Backend.User
 
     timestamps()
   end
@@ -11,7 +13,7 @@ defmodule Backend.Clock do
   @doc false
   def changeset(clock, attrs) do
     clock
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:time, :status, :user])
+    |> validate_required([:time, :status, :user])
   end
 end
