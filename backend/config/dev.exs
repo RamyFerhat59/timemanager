@@ -23,11 +23,8 @@ config :backend, BackendWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "pXbvj2DCMrUAkOzG7nY/IA7ls5pAJvQrJrqU9nIzFRrJjg/T6h+9y2hD5l0jXVhb",
-  watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
-  ]
+  secret_key_base: "uGdLkMK3cb+x7hfK3XfXvQUwh7qftZjArReKXNvFHcEpcmU+U9mKZNtpP8pd0mpK",
+  watchers: []
 
 # ## SSL Support
 #
