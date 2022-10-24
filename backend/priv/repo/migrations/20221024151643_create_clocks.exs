@@ -5,7 +5,7 @@ defmodule Backend.Repo.Migrations.CreateClocks do
     create table(:clocks) do
       add :time, :naive_datetime, null: false
       add :status, :boolean, default: false, null: false
-      add :user_id, references(:users)
+      add :user_id, references(:users), null: false
 
 
       timestamps()
