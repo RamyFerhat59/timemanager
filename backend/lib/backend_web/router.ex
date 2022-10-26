@@ -7,6 +7,27 @@ defmodule BackendWeb.Router do
 
   scope "/api", BackendWeb do
     pipe_through :api
+
+    # USER
+
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
+    post "/users", UserController, :create
+    put "/users/:id", UserController, :update
+    delete "/users/:id", UserController, :delete
+
+    # CLOCK
+
+    get "/clocks/:userID", ClockController, :show
+    post "/clocks/:userID", ClockController, :create
+
+    # WORKINGTIME
+
+    get "/workingtimes/:userID", WorkingtimeController, :index
+    get "/workingtimes/:userID/:id", WorkingtimeController, :show
+    post "/workingtimes/:userID", WorkingtimeController, :create
+    put "/workingtimes/:id", WorkingtimeController, :update
+    delete "/workingtimes/:id", WorkingtimeController, :delete
   end
 
   # Enables LiveDashboard only for development
