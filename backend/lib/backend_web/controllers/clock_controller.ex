@@ -31,22 +31,6 @@ defmodule BackendWeb.ClockController do
     render(conn, "show.json", clock: clock)
   end
 
-  # def update(conn, %{"id" => id, "clock" => clock_params}) do
-  #   clock = Repo.get!(Clock, id)
-
-  #   with {:ok, %Clock{} = clock} <- update_clock(clock, clock_params) do
-  #     render(conn, "show.json", clock: clock)
-  #   end
-  # end
-
-  # def delete(conn, %{"id" => id}) do
-  #   clock = Repo.get!(Clock, id)
-
-  #   with {:ok, %Clock{}} <- Repo.delete(clock) do
-  #     send_resp(conn, :no_content, "")
-  #   end
-  # end
-
   # inside functions
 
   def create_clock(attrs \\ %{}) do
@@ -54,11 +38,5 @@ defmodule BackendWeb.ClockController do
     |> Clock.changeset(attrs)
     |> Repo.insert()
   end
-
-  # def update_clock(%Clock{} = clock, attrs) do
-  #   clock
-  #   |> Clock.changeset(attrs)
-  #   |> Repo.update()
-  # end
 
 end

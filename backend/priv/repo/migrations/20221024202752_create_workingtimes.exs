@@ -5,7 +5,7 @@ defmodule Backend.Repo.Migrations.CreateWorkingtimes do
     create table(:workingtimes) do
       add :start, :naive_datetime, null: false
       add :end, :naive_datetime, null: false
-      add :user_id, references(:users), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
       timestamps()
     end
   end
