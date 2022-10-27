@@ -18,5 +18,6 @@ defmodule Backend.User do
     |> cast(attrs, [:username, :email])
     |> validate_required([:username, :email])
     |> validate_format(:email, ~r/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    |> unique_constraint(:email)
   end
 end
