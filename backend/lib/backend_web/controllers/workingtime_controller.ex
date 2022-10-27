@@ -19,11 +19,11 @@ defmodule BackendWeb.WorkingtimeController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"userID" => userId}) do
+  def create(conn, %{"userID" => userId, "workingtime" => wt_params}) do
     workingtime_params = %{
       "user_id" => userId,
-      "start" =>  NaiveDateTime.utc_now(),
-      "end" => NaiveDateTime.utc_now()
+      "start" =>  wt_params["start"],
+      "end" => wt_params["end"]
     }
     with {:ok, %Workingtime{} = workingtime} <- create_workingtime(workingtime_params) do
       workingtime = Repo.preload(workingtime, :user)
