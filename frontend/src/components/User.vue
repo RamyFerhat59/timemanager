@@ -15,7 +15,7 @@ export default {
   methods: {
     checkUser() {
       fetch('http://localhost:4000/api/users', {
-        mode: 'same-origin',
+        mode: 'cors',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
