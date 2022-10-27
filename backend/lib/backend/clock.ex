@@ -14,7 +14,7 @@ defmodule Backend.Clock do
   @doc false
   def changeset(clock, attrs) do
     clock
-    |> cast(attrs, [:time, :user_id])
+    |> cast(attrs, [:time, :status, :user_id])
     |> validate_required([:time, :user_id])
     |> unique_constraint(:user_id)
     |> assoc_constraint(:user)

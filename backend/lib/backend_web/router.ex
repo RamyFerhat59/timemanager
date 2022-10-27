@@ -19,7 +19,7 @@ defmodule BackendWeb.Router do
     # CLOCK
 
     get "/clocks/:userID", ClockController, :show
-    post "/clocks/:userID", ClockController, :create
+    post "/clocks/:userID", ClockController, :post
 
     # WORKINGTIME
 
