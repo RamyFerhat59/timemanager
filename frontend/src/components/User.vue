@@ -14,7 +14,8 @@ export default {
   },
   methods: {
     checkUser() {
-      fetch('http://localhost:3000/api/users', {
+      fetch('http://localhost:4000/api/users', {
+        mode: 'same-origin',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +35,7 @@ export default {
 }
 
 function getUser() {
-  fetch('http://localhost:3000/api/users', {
+  fetch('http://localhost:4000/api/users', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ function getUser() {
 }
 
 function createUser() {
-  fetch('http://localhost:3000/api/users', {
+  fetch('http://localhost:4000/api/users', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({

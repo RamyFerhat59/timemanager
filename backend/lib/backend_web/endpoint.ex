@@ -45,4 +45,5 @@ defmodule BackendWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug BackendWeb.Router
+  plug CORSPlug, origin: "http://localhost;5173"
 end
