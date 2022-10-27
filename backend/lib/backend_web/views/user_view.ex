@@ -15,7 +15,7 @@ defmodule BackendWeb.UserView do
       id: user.id,
       email: user.email,
       username: user.username,
-      #clocks: user.clocks,
+      clock: user.clock,
       #workingtimes: user.workingtimes,
     }
   end

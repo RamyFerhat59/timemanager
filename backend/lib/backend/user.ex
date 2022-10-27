@@ -6,7 +6,7 @@ defmodule Backend.User do
   schema "users" do
     field :email, :string
     field :username, :string
-    # has_many :clocks, Backend.Clock
+    has_one :clock, Backend.Clock
     # has_many :workingtimes, Backend.Workingtime
 
     timestamps()

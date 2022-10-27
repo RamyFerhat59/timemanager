@@ -6,18 +6,25 @@ defmodule BackendWeb.UserController do
 
   action_fallback BackendWeb.FallbackController
 
-  def index(conn, _params) do
-    if not is_nil(_params["email"]) and not is_nil(_params["username"]) do
-      user = Repo.get_by!(User, [email: _params["email"], username: _params["username"]])
+  def index(conn, params) do
+    if not is_nil(params["email"]) and not is_nil(params["username"]) do
+      user =
+        User
+        |> Repo.get_by!([email: params["email"], username: params["username"]])
+        |> Repo.preload(:clock)
       render(conn, "show.json", user: user)
     else
-      users = Repo.all(User)
+      users =
+        User
+        |> Repo.all()
+        |> Repo.preload(:clock)
       render(conn, "index.json", users: users)
     end
   end
 
   def create(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- create_user(user_params) do
+      user = Repo.preload(user, :clock)
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.user_path(conn, :show, user))
@@ -26,7 +33,10 @@ defmodule BackendWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+    user =
+      User
+      |> Repo.get!(id)
+      |> Repo.preload(:clock)
     render(conn, "show.json", user: user)
   end
 
@@ -34,6 +44,7 @@ defmodule BackendWeb.UserController do
     user = Repo.get!(User, id)
 
     with {:ok, %User{} = user} <- update_user(user, user_params) do
+      user = Repo.preload(user, :clock)
       render(conn, "show.json", user: user)
     end
   end
