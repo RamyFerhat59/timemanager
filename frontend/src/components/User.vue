@@ -38,7 +38,7 @@ export default {
       })
     },
     getUser() {
-      fetch('http://localhost:3000/api/users', {
+      fetch('http://localhost:4000/api/users', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default {
       })
     },
     createUser() {
-      fetch('http://localhost:3000/api/users', {
+      fetch('http://localhost:4000/api/users', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
