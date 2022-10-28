@@ -10,6 +10,6 @@ RUN mix deps.get
 
 RUN mix ecto.setup
 
-EXPOSE 5173
+EXPOSE 4000
 
 CMD ["mix", "phx.server"]
