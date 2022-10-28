@@ -7,9 +7,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.41"
+    "quasar": "^2.10.0",
+    "vue": "^3.2.41",
+    "vuetify": "^2.6.12"
   },
   "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.3",
     "@vitejs/plugin-vue": "^3.1.2",
     "vite": "^3.2.0"
   }

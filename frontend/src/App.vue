@@ -5,10 +5,6 @@ import WorkingTimes from './components/WorkingTimes.vue'
 
 <template>
   <div class="wrapper">
-    <User msg="Test" />
+    <User/>
   </div>
 </template>
-
-<style scoped>
-
-</style>

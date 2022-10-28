@@ -73,14 +73,3 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between
-}
-
-.login {
-  display: flex;
-  flex-direction: column;
-  gap: 5px
-}
