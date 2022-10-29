@@ -18,7 +18,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ### **1. Users**
 
-| Http Methodes | Routes         | Description                                         | Parameters                            | Body example                                                                     |
+| Http Methods | Routes         | Description                                         | Parameters                            | Body example                                                                     |
 |---------------|----------------|-----------------------------------------------------|---------------------------------------|----------------------------------------------------------------------------------|
 | GET           | /api/users     | Get all users or get one user by username and email | username (optional), email (optional) | -                                                                                |
 | GET           | /api/users/:id | Get user by id                                      | -                                     | -                                                                                |
@@ -28,14 +28,14 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ### **2. Clocks**
 
-| Http Methodes | Routes              | Description                                                                                                | Parameters | Body example |
+| Http Methods | Routes              | Description                                                                                                | Parameters | Body example |
 |---------------|---------------------|------------------------------------------------------------------------------------------------------------|------------|--------------|
 | GET           | /api/clocks/:userId  | Get the user's clock by its id                                                                             | -          | -            |
 | POST          | /api/clocks/:userId | Post clock or update time and status of the clock. If status is update to false, it creates a working time | -          | -            |
 
 ### **3. Workingtimes**
 
-| Http Methodes | Routes                        | Description                                 | Parameters | Body example                                                                                    |
+| Http Methods | Routes                        | Description                                 | Parameters | Body example                                                                                    |
 |---------------|-------------------------------|---------------------------------------------|------------|-------------------------------------------------------------------------------------------------|
 | GET           | /api/workingtimes/:userId     | Get user's workingtimes between 2 datetimes | start, end | -                                                                                               |
 | GET           | /api/workingtimes/:userId/:id | Get workingtime by id and user id           | -          | -                                                                                               |
