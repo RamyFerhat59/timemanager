@@ -1,15 +1,19 @@
-FROM elixir:alpine
+FROM elixir:1.14
+
+RUN apt-get update && apt-get install -y postgresql-client 
 
 WORKDIR /app/backend
 
 COPY . .
 
-RUN mix local.hex --force
+RUN MIX_ENV=prod mix local.hex --force
 
-RUN mix local.rebar --force
+RUN MIX_ENV=prod mix local.rebar --force
 
-RUN mix deps.get
+RUN mix deps.get --only prod
 
-EXPOSE 4000
+RUN MIX_ENV=prod mix compile
 
-CMD ["mix", "ecto.setup"]; ["mix", "phx.server"]
+RUN chmod +x ./entrypoint.sh
+
+CMD ["./entrypoint.sh"]
