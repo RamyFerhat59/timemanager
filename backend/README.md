@@ -5,9 +5,11 @@ To start your Phoenix server:
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
-- Start Docker Container with `docker compose -f docker-compose.prod.yml up`
+- Start Docker Container DEV with `docker compose -f docker-compose.prod.yml up`
+- Build Docker Container RELEASE `docker-compose -f docker-compose.release.yml -p prod build`
+- Run & Migrate `docker-compose -f docker-compose.release.yml -p prod up && docker exec $NAME_OF_BACK_CONTAINER /home/elixir/app/bin/backend eval "Backend.Release.migrate"`
 
-Now you can visit [`0.0.0.0:4000`](http://localhost:4000) from your browser.
+  Now you can visit [`0.0.0.0:4000`](http://0.0.0.0:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
