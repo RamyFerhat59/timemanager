@@ -4,17 +4,16 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: ./release.Dockerfile
+      dockerfile: ./Dockerfile
     restart: always
     ports:
       - 4000:4000
+    volumes:
+      - ./backend:/app
     depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: $DATABASE_URL
-      SECRET_KEY_BASE: $SECRET_KEY_BASE
-      DATABASE_HOSTNAME: $DATABASE_HOSTNAME
+      - db
+    env_file:
+      - ./backend/.env
 
   frontend:
     build: ./frontend
@@ -29,15 +28,22 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGUSER: postgres
+      POSTGRES_DB: backend_dev
+      PGDATA: /var/lib/postgresql/data/pgdataprod
+    volumes:
+      - "pgdataprod:/var/lib/postgresql/data"
     ports:
       - 5432:5432
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
-      interval: 15s
-      timeout: 10s
-      retries: 10
+    # healthcheck:
+    # test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+    # interval: 10s
+    # timeout: 10s
+    # retries: 10
 
   adminer:
     image: adminer
     ports:
       - 8000:8080
+
+volumes:
+  pgdataprod:
