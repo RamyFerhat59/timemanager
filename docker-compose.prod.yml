@@ -29,6 +29,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGUSER: postgres
+      PGDATA: /var/lib/postgresql/data/pgdatadev
+    volumes:
+      - "pgdatadev:/var/lib/postgresql/data"
     ports:
       - 5432:5432
     healthcheck:
@@ -41,3 +44,6 @@ services:
     image: adminer
     ports:
       - 8000:8080
+
+volumes:
+  pgdatadev:
