@@ -14,8 +14,7 @@ services:
     environment:
       DATABASE_URL: $DATABASE_URL
       SECRET_KEY_BASE: $SECRET_KEY_BASE
-      DATABASE_HOSTNAME: $DATABASE_HOSTNAME
-
+      
   frontend:
     build: ./frontend
     restart: always

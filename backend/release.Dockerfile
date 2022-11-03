@@ -11,8 +11,7 @@ COPY ./priv ./
 COPY ./test ./ 
 COPY ./mix.exs ./
 COPY ./mix.lock ./
-COPY ./entrypoint_release.sh ./
-COPY ./rel ./
+COPY ./entrypoint.sh ./
 
 ENV MIX_ENV=prod
 
@@ -30,6 +29,6 @@ RUN mix deps.compile
 
 RUN mix release 
 
-RUN chmod +x ./entrypoint_release.sh
+RUN chmod +x ./entrypoint.sh
 
 CMD ["./entrypoint.sh"]
