@@ -2,27 +2,23 @@ version: "3.1"
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: ./release.Dockerfile
+    platform: linux/amd64
+    image: ramyferhat59/phoenix-deploy:backend
     restart: always
     ports:
       - 4000:4000
     depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: $DATABASE_URL
-      SECRET_KEY_BASE: $SECRET_KEY_BASE
-      DATABASE_HOSTNAME: $DATABASE_HOSTNAME
+      - db
+    env_file:
+      - ./backend/.env
 
-  frontend:
-    build: ./frontend
-    restart: always
-    ports:
-      - 5173:5173
+  # frontend:
+  # image: ramyferhat59/phoenix-deploy:frontend
+  # ports:
+  # - 5173:5173
 
   db:
+    container_name: ramyferhat59/phoenix-deploy:postgres
     image: postgres
     restart: always
     environment:
@@ -31,7 +27,7 @@ services:
       PGUSER: postgres
       PGDATA: /var/lib/postgresql/data/pgdatadev
     volumes:
-      - "pgdatadev:/var/lib/postgresql/data"
+      - "pgdatadev:/var/postgresql/data"
     ports:
       - 5432:5432
     healthcheck:
@@ -41,9 +37,9 @@ services:
       retries: 10
 
   adminer:
+    container_name: ramyferhat59/phoenix-deploy:adminer
     image: adminer
     ports:
-      - 8000:8080
-
+      - 8080:8080
 volumes:
   pgdatadev:

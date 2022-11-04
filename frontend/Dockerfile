@@ -1,6 +1,6 @@
-FROM node:lts-alpine
+FROM --platform=linux/amd64 node:lts-alpine
 
-WORKDIR /frontend
+WORKDIR /app/frontend
 
 COPY . .
 
