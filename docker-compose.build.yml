@@ -1,0 +1,57 @@
+version: "3.1"
+
+services:
+  backend:
+    image: ramyferhat59/phoenix-deploy:backend
+    build:
+      context: ./backend
+      dockerfile: ./release.Dockerfile
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64 
+    restart: always
+    ports:
+      - 4000:4000
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    image: ramyferhat59/phoenix-deploy:frontent
+    build:
+      context: ./frontend
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64 
+    ports:
+      - 5173:5173
+
+  db:
+    container_name: ramyferhat59/phoenix-deploy:postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGUSER: postgres
+      PGDATA: /var/lib/postgresql/data/pgdatadev
+    volumes:
+      - "pgdatadev:/var/postgresql/data"
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  adminer:
+    container_name: ramyferhat59/phoenix-deploy:adminer
+    image: adminer
+    ports:
+      - 8080:8080
+volumes:
+  pgdatadev:
