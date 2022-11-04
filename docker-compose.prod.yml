@@ -2,9 +2,7 @@ version: "3.1"
 
 services:
   backend:
-    platform: linux/amd64
     image: ramyferhat59/phoenix-deploy:backend
-    restart: always
     ports:
       - 4000:4000
     depends_on:
@@ -12,15 +10,14 @@ services:
     env_file:
       - ./backend/.env
 
-  # frontend:
-  # image: ramyferhat59/phoenix-deploy:frontend
-  # ports:
-  # - 5173:5173
+  frontend:
+    image: ramyferhat59/phoenix-deploy:frontent
+    ports:
+      - 5173:5173
 
   db:
     container_name: ramyferhat59/phoenix-deploy:postgres
     image: postgres
-    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -41,5 +38,6 @@ services:
     image: adminer
     ports:
       - 8080:8080
+
 volumes:
   pgdatadev:

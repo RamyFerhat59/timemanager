@@ -6,10 +6,6 @@ services:
     build:
       context: ./backend
       dockerfile: ./release.Dockerfile
-      x-bake:
-        platforms:
-          - linux/amd64
-          - linux/arm64 
     restart: always
     ports:
       - 4000:4000
@@ -22,10 +18,6 @@ services:
     image: ramyferhat59/phoenix-deploy:frontent
     build:
       context: ./frontend
-      x-bake:
-        platforms:
-          - linux/amd64
-          - linux/arm64 
     ports:
       - 5173:5173
 
