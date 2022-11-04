@@ -4,7 +4,6 @@ defmodule BackendWeb.WorkingtimeController do
 
   alias Backend.Repo
   alias Backend.Workingtime
-  alias Backend.User
 
   action_fallback BackendWeb.FallbackController
 

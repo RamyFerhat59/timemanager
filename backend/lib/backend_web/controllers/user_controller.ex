@@ -33,11 +33,9 @@ defmodule BackendWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user =
-      User
-      |> Repo.get!(id)
-      |> Repo.preload(:clock)
-    render(conn, "show.json", user: user)
+    with user <- get_by_id(id) do
+      render(conn, "show.json", user: user)
+    end
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -61,14 +59,20 @@ defmodule BackendWeb.UserController do
 
   def create_user(attrs \\ %{}) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.update()
+  end
+
+  def get_by_id(id) do
+    User
+      |> Repo.get!(id)
+      |> Repo.preload(:clock)
   end
 
 end

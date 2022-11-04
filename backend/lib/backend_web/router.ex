@@ -6,8 +6,16 @@ defmodule BackendWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Backend.Gardian.Pipeline
+  end
+
   scope "/api", BackendWeb do
     pipe_through :api
+
+    # SESSION
+
+    post "/sessions/new", SessionController, :new
 
     # USER
 
@@ -29,6 +37,15 @@ defmodule BackendWeb.Router do
     post "/workingtimes/:userID", WorkingtimeController, :create
     put "/workingtimes/:id", WorkingtimeController, :update
     delete "/workingtimes/:id", WorkingtimeController, :delete
+  end
+
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth]
+
+    # SESSION
+
+    post "/sessions/refresh", SessionController, :refresh
+    post "/sessions/delete", SessionController, :delete
   end
 
   # Enables LiveDashboard only for development
