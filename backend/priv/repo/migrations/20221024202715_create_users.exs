@@ -6,6 +6,7 @@ defmodule Backend.Repo.Migrations.CreateUsers do
       add :username, :string, null: false
       add :email, :string, null: false
       add :password, :string, null: false
+      add :role, :string, null: false
 
       timestamps()
     end

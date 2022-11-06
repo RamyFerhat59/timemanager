@@ -19,13 +19,26 @@ defmodule BackendWeb.Router do
 
     # USER
 
-    get "/users", UserController, :index
-    get "/users/:id", UserController, :show
     post "/users", UserController, :create
+
+  end
+
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth]
+
+    # SESSION
+
+    post "/sessions/refresh", SessionController, :refresh
+    post "/sessions/delete", SessionController, :delete
+
+    # USER
+
+    get "/users/:id", UserController, :show
+    get "/users", UserController, :index
     put "/users/:id", UserController, :update
     delete "/users/:id", UserController, :delete
 
-    # CLOCK
+     # CLOCK
 
     get "/clocks/:userID", ClockController, :show
     post "/clocks/:userID", ClockController, :post
@@ -37,15 +50,7 @@ defmodule BackendWeb.Router do
     post "/workingtimes/:userID", WorkingtimeController, :create
     put "/workingtimes/:id", WorkingtimeController, :update
     delete "/workingtimes/:id", WorkingtimeController, :delete
-  end
 
-  scope "/api", BackendWeb do
-    pipe_through [:api, :auth]
-
-    # SESSION
-
-    post "/sessions/refresh", SessionController, :refresh
-    post "/sessions/delete", SessionController, :delete
   end
 
   # Enables LiveDashboard only for development

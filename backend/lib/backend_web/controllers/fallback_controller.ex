@@ -21,4 +21,11 @@ defmodule BackendWeb.FallbackController do
     |> put_view(BackendWeb.ChangesetView)
     |> render("error.json", changeset: changeset)
   end
+
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(BackendWeb.ErrorView)
+    |> render(:"401")
+  end
 end
