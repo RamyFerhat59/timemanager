@@ -7,8 +7,6 @@ defmodule Backend.User do
     field :email, :string
     field :username, :string
     has_one :clock, Backend.Clock
-    # has_many :workingtimes, Backend.Workingtime
-
     timestamps()
   end
 
