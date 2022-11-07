@@ -1,24 +1,16 @@
 # Backend
 
-To start your Phoenix server:
+To start your Phoenix server for local development:
 
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
-- Start Docker Container DEV with `docker compose -f docker-compose.prod.yml up`
-- mix ecto.reset when migration updated
-- Build Docker Container RELEASE `docker-compose -f docker-compose.release.yml -p prod build`
-- Run & Migrate `docker-compose -f docker-compose.release.yml -p prod up && docker exec $NAME_OF_BACK_CONTAINER /home/elixir/app/bin/backend eval "Backend.Release.migrate"`
-  Now you can visit [`0.0.0.0:4000`](http://0.0.0.0:4000) from your browser.
-- Install aws cli
-- Run aws configure to add credentials
-- aws sts get-caller-identity to check
-- aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com
-- docker tag hello-world:latest aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository
-- docker push aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository
-- docker pull aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository:latest
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+To start your Dockerized Phoenix server and Deploy:
+
+- Start Docker Container with `docker compose -f docker-compose.build.yml build && docker compose -f docker-compose.build.yml up`
+- To deploy with Travis CI push your changes to git@github.com:RamyFerhat59/timemanager.git
+  Now you can visit [`0.0.0.0:4000`](http://0.0.0.0:4000) from your browser.
 
 ## Database
 
