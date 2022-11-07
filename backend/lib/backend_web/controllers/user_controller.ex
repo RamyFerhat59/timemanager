@@ -38,7 +38,7 @@ defmodule BackendWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    with {:ok, current_user} <- RoleWrapper.check_current_user(conn,id),
+    with {:ok, _current_user} <- RoleWrapper.check_current_user(conn,id),
         user <- get_by_id(id) do
       render(conn, "show.json", user: user)
     end

@@ -28,4 +28,11 @@ defmodule BackendWeb.FallbackController do
     |> put_view(BackendWeb.ErrorView)
     |> render(:"401")
   end
+
+  def call(conn, {:error, :invalid_token}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(BackendWeb.ErrorView)
+    |> render(:"401")
+  end
 end

@@ -38,6 +38,16 @@ defmodule BackendWeb.Router do
     put "/users/:id", UserController, :update
     delete "/users/:id", UserController, :delete
 
+    # TEAM
+
+    get "/teams", TeamController, :index
+    get "/teams/:id", TeamController, :show
+    post "/teams", TeamController, :create
+    put "/teams/:id", TeamController, :update
+    put "/teams/:id/:userId", TeamController, :add_employee
+    delete "/teams/:id/:userId", TeamController, :remove_employee
+    delete "/teams/:id", TeamController, :delete
+
      # CLOCK
 
     get "/clocks/:userID", ClockController, :show
@@ -50,6 +60,14 @@ defmodule BackendWeb.Router do
     post "/workingtimes/:userID", WorkingtimeController, :create
     put "/workingtimes/:id", WorkingtimeController, :update
     delete "/workingtimes/:id", WorkingtimeController, :delete
+
+    # DAYOFF
+
+    get "/daysoff/:userID", DayoffController, :index
+    get "/daysoff/:userID/:id", DayoffController, :show
+    post "/daysoff/:userID", DayoffController, :create
+    put "/daysoff/:id", DayoffController, :update
+    delete "/daysoff/:id", DayoffController, :delete
 
   end
 

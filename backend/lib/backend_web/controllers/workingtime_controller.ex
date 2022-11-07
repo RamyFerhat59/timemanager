@@ -51,7 +51,6 @@ defmodule BackendWeb.WorkingtimeController do
       Workingtime
       |> Repo.get!(id)
       |> Repo.preload(:user)
-
     with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, workingtime.user.id),
         {:ok, %Workingtime{} = workingtime} <- update_workingtime(workingtime, workingtime_params) do
 
@@ -60,7 +59,10 @@ defmodule BackendWeb.WorkingtimeController do
   end
 
   def delete(conn, %{"id" => id}) do
-    workingtime = Repo.get!(Workingtime, id)
+    workingtime =
+      Workingtime
+      |> Repo.get!(id)
+      |> Repo.preload(:user)
 
     with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, workingtime.user.id),
         {:ok, %Workingtime{}} <- Repo.delete(workingtime) do

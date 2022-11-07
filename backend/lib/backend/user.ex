@@ -9,7 +9,8 @@ defmodule Backend.User do
     field :password, :string
     field :role, :string, default: "employee"
     has_one :clock, Backend.Clock
-    # has_many :workingtimes, Backend.Workingtime
+    has_many :managed_teams, Backend.Workingtime
+    many_to_many :teams, Backend.Team, join_through: "employees_teams"
 
     timestamps()
   end
