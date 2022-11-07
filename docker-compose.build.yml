@@ -29,7 +29,6 @@ services:
       - 5173:5173
 
   db:
-    container_name: ramyferhat59/phoenix-deploy:postgres
     image: postgres
     restart: always
     environment:
@@ -48,7 +47,6 @@ services:
       retries: 10
 
   adminer:
-    container_name: ramyferhat59/phoenix-deploy:adminer
     image: adminer
     ports:
       - 8080:8080
