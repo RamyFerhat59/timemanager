@@ -8,6 +8,6 @@ script:
 
 deploy:
   provider: script
-  script: bash scripts/travis-deploy.sh
+  script: bash travis-deploy.sh
   on:
     branch: main
