@@ -7,5 +7,4 @@ sudo docker-compose -f docker-compose.build.yml push
 sudo docker context create ecs deploy-phoenix --from-env
 sudo docker context use deploy-phoenix
 sudo docker compose -f docker-compose.prod.yml up
-sudo docker compose -f docker-compose.prod.yml ps
 
