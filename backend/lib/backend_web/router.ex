@@ -6,18 +6,49 @@ defmodule BackendWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Backend.Gardian.Pipeline
+  end
+
   scope "/api", BackendWeb do
     pipe_through :api
 
+    # SESSION
+
+    post "/sessions/new", SessionController, :new
+
     # USER
 
-    get "/users", UserController, :index
-    get "/users/:id", UserController, :show
     post "/users", UserController, :create
+
+  end
+
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth]
+
+    # SESSION
+
+    post "/sessions/refresh", SessionController, :refresh
+    post "/sessions/delete", SessionController, :delete
+
+    # USER
+
+    get "/users/:id", UserController, :show
+    get "/users", UserController, :index
     put "/users/:id", UserController, :update
     delete "/users/:id", UserController, :delete
 
-    # CLOCK
+    # TEAM
+
+    get "/teams", TeamController, :index
+    get "/teams/:id", TeamController, :show
+    post "/teams", TeamController, :create
+    put "/teams/:id", TeamController, :update
+    put "/teams/:id/:userId", TeamController, :add_employee
+    delete "/teams/:id/:userId", TeamController, :remove_employee
+    delete "/teams/:id", TeamController, :delete
+
+     # CLOCK
 
     get "/clocks/:userID", ClockController, :show
     post "/clocks/:userID", ClockController, :post
@@ -29,6 +60,15 @@ defmodule BackendWeb.Router do
     post "/workingtimes/:userID", WorkingtimeController, :create
     put "/workingtimes/:id", WorkingtimeController, :update
     delete "/workingtimes/:id", WorkingtimeController, :delete
+
+    # DAYOFF
+
+    get "/daysoff/:userID", DayoffController, :index
+    get "/daysoff/:userID/:id", DayoffController, :show
+    post "/daysoff/:userID", DayoffController, :create
+    put "/daysoff/:id", DayoffController, :update
+    delete "/daysoff/:id", DayoffController, :delete
+
   end
 
   # Enables LiveDashboard only for development

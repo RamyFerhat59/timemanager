@@ -5,6 +5,7 @@ defmodule BackendWeb.ClockController do
   alias Backend.Repo
   alias Backend.Clock
   alias BackendWeb.WorkingtimeController, as: WorkingtimeCtrl
+  alias Backend.Guardian.RoleWrapper
 
   action_fallback BackendWeb.FallbackController
 
@@ -27,13 +28,17 @@ defmodule BackendWeb.ClockController do
         }
         WorkingtimeCtrl.create_workingtime(workingtime_params)
       end
-      with {:ok, %Clock{} = clock} <- update_clock(clock) do
+      with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, userId),
+          {:ok, %Clock{} = clock} <- update_clock(clock) do
+
         clock = Repo.preload(clock, :user)
         render(conn, "show.json", clock: clock)
       end
     else
       clock_params = %{"user_id" => userId, "time" =>  NaiveDateTime.utc_now()}
-      with {:ok, %Clock{} = clock} <- create_clock(clock_params) do
+      with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, userId),
+          {:ok, %Clock{} = clock} <- create_clock(clock_params) do
+
         clock = Repo.preload(clock, :user)
         conn
         |> put_status(:created)
@@ -44,11 +49,13 @@ defmodule BackendWeb.ClockController do
   end
 
   def show(conn, %{"userID" => userId}) do
-    clock =
-      Clock
-      |> Repo.get_by!(user_id: userId)
-      |> Repo.preload(:user)
-    render(conn, "show.json", clock: clock)
+    with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, userId) do
+      clock =
+        Clock
+        |> Repo.get_by!(user_id: userId)
+        |> Repo.preload(:user)
+      render(conn, "show.json", clock: clock)
+    end
   end
 
   # inside functions

@@ -3,6 +3,7 @@ defmodule BackendWeb.UserController do
 
   alias Backend.Repo
   alias Backend.User
+  alias Backend.Guardian.RoleWrapper
 
   action_fallback BackendWeb.FallbackController
 
@@ -12,13 +13,17 @@ defmodule BackendWeb.UserController do
         User
         |> Repo.get_by!([email: params["email"], username: params["username"]])
         |> Repo.preload(:clock)
-      render(conn, "show.json", user: user)
+      with {:ok, _current_user} <- RoleWrapper.check_current_user(conn,user.id) do
+        render(conn, "show.json", user: user)
+      end
     else
-      users =
-        User
-        |> Repo.all()
-        |> Repo.preload(:clock)
-      render(conn, "index.json", users: users)
+      with {:ok, _current_user} <- RoleWrapper.check_admin(conn) do
+        users =
+          User
+          |> Repo.all()
+          |> Repo.preload(:clock)
+        render(conn, "index.json", users: users)
+      end
     end
   end
 
@@ -33,17 +38,18 @@ defmodule BackendWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user =
-      User
-      |> Repo.get!(id)
-      |> Repo.preload(:clock)
-    render(conn, "show.json", user: user)
+    with {:ok, _current_user} <- RoleWrapper.check_current_user(conn,id),
+        user <- get_by_id(id) do
+      render(conn, "show.json", user: user)
+    end
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Repo.get!(User, id)
 
-    with {:ok, %User{} = user} <- update_user(user, user_params) do
+    with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, id),
+        {:ok, %User{} = user} <- update_user(user, user_params) do
+
       user = Repo.preload(user, :clock)
       render(conn, "show.json", user: user)
     end
@@ -52,7 +58,9 @@ defmodule BackendWeb.UserController do
   def delete(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
 
-    with {:ok, %User{}} <- Repo.delete(user) do
+    with {:ok, _current_user} <- RoleWrapper.check_current_user(conn, id),
+        {:ok, %User{}} <- Repo.delete(user) do
+
       send_resp(conn, :no_content, "")
     end
   end
@@ -61,14 +69,20 @@ defmodule BackendWeb.UserController do
 
   def create_user(attrs \\ %{}) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.update()
+  end
+
+  def get_by_id(id) do
+    User
+      |> Repo.get!(id)
+      |> Repo.preload(:clock)
   end
 
 end
