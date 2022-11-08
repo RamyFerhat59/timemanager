@@ -10,7 +10,8 @@ To start your Dockerized Phoenix server and Deploy:
 
 - Start Docker Container with `docker compose -f docker-compose.build.yml build && docker compose -f docker-compose.build.yml up`
 - To deploy with Travis CI push your changes to git@github.com:RamyFerhat59/timemanager.git
-  Now you can visit [`0.0.0.0:4000`](http://0.0.0.0:4000) from your browser.
+  Now you can visit [`0.0.0.0:4000`](http://0.0.0.0:4000) from your browser locally,
+  When deployed visit [`aws load balancer dns name`]
 
 ## Database
 
