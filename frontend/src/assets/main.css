@@ -1,12 +1,83 @@
 @import './base.css';
 
 #app {
-  margin: 1rem;
-  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 * {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
+  /* border: 1px solid black; */
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  background-color: #0a0a0a;
+  width: 15%;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1;
+  color: white;
+  padding: 10px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  width: 85%;
+  height: 100%;
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 5%;
+  justify-content: space-between;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.user > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+}
+
+.logged {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  gap: 10px;
 }

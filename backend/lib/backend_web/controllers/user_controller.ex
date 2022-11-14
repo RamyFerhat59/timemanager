@@ -8,10 +8,10 @@ defmodule BackendWeb.UserController do
   action_fallback BackendWeb.FallbackController
 
   def index(conn, params) do
-    if not is_nil(params["email"]) and not is_nil(params["username"]) do
+    if not is_nil(params["email"]) do
       user =
         User
-        |> Repo.get_by!([email: params["email"], username: params["username"]])
+        |> Repo.get_by!([email: params["email"]])
         |> Repo.preload(:clock)
       with {:ok, _current_user} <- RoleWrapper.check_current_user(conn,user.id) do
         render(conn, "show.json", user: user)

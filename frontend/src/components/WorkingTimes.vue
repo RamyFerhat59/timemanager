@@ -1,16 +1,13 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true
+<script>
+  export default {
+    data () {
+      return {
+      }
+    },
   }
-})
 </script>
 
 <template>
-  <div class="greetings">
-    <h1></h1>
-  </div>
 </template>
 
 <style scoped>
