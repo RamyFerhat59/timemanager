@@ -21,7 +21,7 @@ services:
   frontend:
     image: ramyferhat59/phoenix-deploy:frontent
     build:
-      context: ./frontend
+      context: ./frontend-01
     ports:
       - 5173:5173
 
